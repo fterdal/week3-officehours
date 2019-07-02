@@ -13,6 +13,7 @@ app.get('/message', (req, res, next) => {
 
 app.get('/api/cookies', async (req, res, next) => {
   try {
+    // setTimeout( async () => res.json( await Cookie.findAll()), 1000 )
     res.json(await Cookie.findAll())
   } catch (err) {
     next(err)

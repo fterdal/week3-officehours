@@ -27,9 +27,7 @@ const seed = async () => {
     { name: 'Jabba' },
   ]
   const [ choco, oreo, oatmeal ] = await Cookie.bulkCreate(seedCookies, { returning: true })
-  // console.log(cookies.map(cook => cook.name))
   const [ bigfoot, dracula, jabba ] = await Monster.bulkCreate(seedMonsters, { returning: true })
-  // console.log(monsters.map(mon => mon.name))
 
   await bigfoot.addCookie(oatmeal)
   await dracula.addCookie(oreo)
