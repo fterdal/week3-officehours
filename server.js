@@ -1,4 +1,5 @@
 const express = require('express')
+const path = require('path')
 const morgan = require('morgan')
 const { Cookie, Monster } = require('./database')
 const app = express()
@@ -53,6 +54,11 @@ app.get('/api/monsters/:id', async (req, res, next) => {
 })
 
 app.use(express.static('public'))
+
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'))
+}) // Send index.html for any other requests
+
 
 const PORT = 8080
 app.listen(PORT, () => {

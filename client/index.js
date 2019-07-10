@@ -1,13 +1,16 @@
 import React from 'react'
 import { Provider, connect } from 'react-redux'
 import ReactDOM from 'react-dom'
+import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 
 import store from './store'
 import { fetchCookies } from './cookiesReducer'
+import SingleCookie from './SingleCookie'
+
+// Binding is only really useful if we care about the this context.
 
 class App extends React.Component {
   componentDidMount() {
-    console.log('COMPONENT DID MOUNT')
     this.props.getCookiesFromServer()
   }
   render() {
@@ -19,6 +22,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <h1>Hello from REACT....</h1>
+        <Switch>
+          <Route exact path="/" component={SingleCookie} />
+          <Route path="/cookies/:id" component={SingleCookie} />
+        </Switch>
         <ul>
           {cookies.map(cookie => (
             <li key={cookie.id}>{cookie.name}</li>
@@ -33,7 +40,7 @@ class App extends React.Component {
 const mapState = state => {
   console.log('state', state)
   return {
-    cookies: state,
+    cookies: state.cookies,
   }
 }
 
@@ -46,12 +53,14 @@ const mapDispatch = dispatch => {
 
 const ConnectedApp = connect(
   mapState,
-  mapDispatch,
+  mapDispatch
 )(App)
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedApp />
+    <Router>
+      <ConnectedApp />
+    </Router>
   </Provider>,
   document.getElementById('app')
 )

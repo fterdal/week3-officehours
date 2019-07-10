@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-dev": "webpack -w"
+    "start-dev": "webpack -w",
+    "start-server": "nodemon server"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +24,8 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-fsa": "github:FullstackAcademy/babel-preset-fsa",
     "react-redux": "^7.1.0",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",

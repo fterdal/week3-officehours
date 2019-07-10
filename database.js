@@ -12,14 +12,20 @@ const Monster = db.define('monster', {
   name: Sequelize.STRING,
 })
 
-Monster.belongsToMany(Cookie, { through: 'cookie-monster' })
-Cookie.belongsToMany(Monster, { through: 'cookie-monster' })
+// MANY TO MANY
+// Monster.belongsToMany(Cookie, { through: 'cookie-monster' })
+// Cookie.belongsToMany(Monster, { through: 'cookie-monster' })
+
+// ONE TO MANY
+Monster.hasMany(Cookie)
+Cookie.belongsTo(Monster)
 
 const seed = async () => {
   const seedCookies = [
     { name: 'Chocolate Chip 🍪' },
     { name: 'OREO' },
     { name: 'Oatmeal Raisin' },
+    { name: 'Snickerdoodle' },
   ]
   const seedMonsters = [
     { name: 'Bigfoot' },
