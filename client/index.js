@@ -18,16 +18,16 @@ class App extends React.Component {
     // console.log(this.props)
     const { cookies } = this.props
     if (!cookies || cookies.length === 0) {
-      return <div>Still waiting for cookies.....</div>
+      return <NewCookieForm />
     }
     return (
       <React.Fragment>
         <h1>Hello from REACT....</h1>
+        <NewCookieForm />
         <Switch>
           <Route exact path="/" component={SingleCookie} />
           <Route path="/cookies/:id" component={SingleCookie} />
         </Switch>
-        <NewCookieForm />
         <ul>
           {cookies.map(cookie => (
             <li key={cookie.id}>

@@ -4,12 +4,19 @@ import axios from 'axios'
 
 // ACTION TYPES
 const SET_COOKIES = 'SET_COOKIES'
+const ADD_COOKIE = 'ADD_COOKIE'
 
 // ACIION CREATORS
 export const setCookies = cookies => {
   return {
     type: SET_COOKIES,
     cookies,
+  }
+}
+export const addCookie = cookie => {
+  return {
+    type: ADD_COOKIE,
+    cookie,
   }
 }
 
@@ -23,12 +30,16 @@ export const fetchCookies = () => async dispatch => {
   }
 }
 
-export const postCookie = (newCookie) => async dispatch => {
+export const postCookie = newCookie => async dispatch => {
   try {
     console.log('TRYING TO POST A COOKIE')
     const { data } = await axios.post('/api/cookies', newCookie)
-    console.log('data from server', data)
-    // dispatch(setCookies(data))
+
+    // Efficient (Hard) Way
+    dispatch(addCookie(data))
+
+    // Inefficient (Easy) Way
+    // dispatch(fetchCookies())
   } catch (err) {
     console.log(err)
   }
@@ -41,6 +52,8 @@ export const cookiesReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_COOKIES:
       return action.cookies
+    case ADD_COOKIE:
+      return [...state, action.cookie]
     default:
       return state
   }
