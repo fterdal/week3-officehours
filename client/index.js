@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from 'react-router-dom'
 import store from './store'
 import { fetchCookies } from './cookiesReducer'
 import SingleCookie from './SingleCookie'
+import NewCookieForm from './NewCookieForm'
 
 // Binding is only really useful if we care about the this context.
 
@@ -14,7 +15,7 @@ class App extends React.Component {
     this.props.getCookiesFromServer()
   }
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     const { cookies } = this.props
     if (!cookies || cookies.length === 0) {
       return <div>Still waiting for cookies.....</div>
@@ -26,9 +27,12 @@ class App extends React.Component {
           <Route exact path="/" component={SingleCookie} />
           <Route path="/cookies/:id" component={SingleCookie} />
         </Switch>
+        <NewCookieForm />
         <ul>
           {cookies.map(cookie => (
-            <li key={cookie.id}>{cookie.name}</li>
+            <li key={cookie.id}>
+              <Link to={`/cookies/${cookie.id}`}>{cookie.name}</Link>
+            </li>
           ))}
         </ul>
       </React.Fragment>
@@ -38,7 +42,7 @@ class App extends React.Component {
 
 // READING FROM REDUX
 const mapState = state => {
-  console.log('state', state)
+  // console.log('state', state)
   return {
     cookies: state.cookies,
   }

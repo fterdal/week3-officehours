@@ -1,21 +1,17 @@
 /* eslint-disable react/prefer-stateless-function */
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
-import { fetchSingleCookie } from './singleCookieReducer';
+import { fetchSingleCookie } from './singleCookieReducer'
 import { withRouter } from 'react-router'
 
-class SingleCookie extends React.Component {
-  componentDidMount() {
-    console.log('this.props', this.props)
-    this.props.fetchSingleCookieFromServer(this.props.match.params.id)
-  }
-  render() {
-    return (
-      <div>
-        SingleCookie Component: {this.props.singleCookie.name}
-      </div>
-    )
-  }
+const SingleCookie = props => {
+  // this.props.fetchSingleCookieFromServer(this.props.match.params.id)
+  // console.log('RENDERING SINGLE COOKIE')
+  useEffect(() => {
+    props.fetchSingleCookieFromServer(props.match.params.id)
+  }, [props.match.params.id])
+  const { name } = props.singleCookie
+  return <div>SingleCookie Component: {name}</div>
 }
 
 const mapState = store => {
@@ -26,8 +22,7 @@ const mapState = store => {
 
 const mapDispatch = dispatch => {
   return {
-    fetchSingleCookieFromServer: id =>
-      dispatch(fetchSingleCookie(id)),
+    fetchSingleCookieFromServer: id => dispatch(fetchSingleCookie(id)),
   }
 }
 

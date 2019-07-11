@@ -23,6 +23,17 @@ export const fetchCookies = () => async dispatch => {
   }
 }
 
+export const postCookie = (newCookie) => async dispatch => {
+  try {
+    console.log('TRYING TO POST A COOKIE')
+    const { data } = await axios.post('/api/cookies', newCookie)
+    console.log('data from server', data)
+    // dispatch(setCookies(data))
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 const initialState = []
 
 // REDUCER
